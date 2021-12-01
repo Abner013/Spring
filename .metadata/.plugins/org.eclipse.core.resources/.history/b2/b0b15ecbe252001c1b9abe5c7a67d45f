@@ -1,0 +1,5 @@
+package generetion.org.helloword.controller;
+
+public class HelloController {
+
+}
