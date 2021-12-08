@@ -15,7 +15,7 @@ import org.hibernate.annotations.UpdateTimestamp;
 @Table (name = "tb_tema")
 public class Tema {
 	
-	@Id
+	@Id  /// ejklsdflnsdlfnalç
 	@GeneratedValue (strategy = GenerationType.IDENTITY ) 
 	private Long id;
 	
