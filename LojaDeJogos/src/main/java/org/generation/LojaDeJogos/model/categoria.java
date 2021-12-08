@@ -1,7 +1,13 @@
 package org.generation.LojaDeJogos.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Table;
+
+@Entity
+@Table
 public class categoria {
-	
+	 
+	private 
 	
 
 }
