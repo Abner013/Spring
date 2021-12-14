@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.generation.LojaDeJogos.model.Categoria;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CategoriaRepository extends JpaRepository <String, Long> {
-	
+@Repository
+public interface CategoriaRepository extends JpaRepository <Categoria, Long> {
+
 	public List <Categoria> findAllByTipoContainigIgnoreCase (String tipo);
 
 }

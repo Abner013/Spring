@@ -5,7 +5,7 @@ import java.util.List;
 
 public class UserDetailsImpol implements UserDetalis{
 
-	private String userName;
+	private String Name;
 	privete String password;
 	private List<GrantedAuthority> authorites;
 	
