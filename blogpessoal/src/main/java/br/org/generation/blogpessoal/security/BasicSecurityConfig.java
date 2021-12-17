@@ -1,33 +1,40 @@
 package br.org.generation.blogpessoal.security;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
-@EnableWebMvc
-public class BasicSecurityConfig extends WebSecurityConfigurerAdaper{
+@EnableWebSecurity
+public class BasicSecurityConfig extends WebSecurityConfigurerAdapter{
 
 	@Autowired
-	private UserDetalisService userDetalisService;
+	private UserDetailsService userDetailsService;
 	
-	protected void configure (AuthenticationManagerBuider auth) throws Exception {
+	@Override
+	protected void configure (AuthenticationManagerBuilder auth) throws Exception {
 		
-		auth.userDetailsService(userDetalisService);
+		auth.userDetailsService(userDetailsService);
 		auth.inMemoryAuthentication()
 			.withUser("root")
-			.passaword(passwordEncoder().escode("root"))
+			.password(passwordEncoder().encode("root"))
 			.authorities("ROLE_USER");
 	}
 
 	@Bean
-	public PasswordEncocer passwordEncocer() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 	}
 	
 	@Override
-	protected void configure(HttpSecurity http) throws Excetion {
+	protected void configure(HttpSecurity http) throws Exception {
 		
 		http.authorizeRequests()
 		.antMatchers("/usuarios/logar").permitAll()
@@ -39,7 +46,4 @@ public class BasicSecurityConfig extends WebSecurityConfigurerAdaper{
 		.and().cors()
 		.and().csrf().disable();
 	}
-	
-	
-
 }
